@@ -68,8 +68,27 @@
         >
       </a>
 
+
+<!-- MOBILE MENU BUTTON -->
+
+<button
+  class="mobile-menu-toggle"
+  type="button"
+  aria-label="Open navigation"
+  aria-expanded="false"
+  aria-controls="mobile-navigation"
+>
+  <span></span>
+  <span></span>
+</button>
+
+
           <!-- HOME -->
- <nav class="nav-links" aria-label="Main navigation">
+<nav
+  class="nav-links"
+  id="mobile-navigation"
+  aria-label="Main navigation"
+>
 <a href="#" class="nav-link" style="--stroke:#126FA5;">
   <span>Home</span>
 
@@ -940,6 +959,58 @@
   </div>
 
 </section>
+
+<script>
+  const menuButton = document.querySelector(
+    ".mobile-menu-toggle"
+  );
+
+  const mobileNavigation = document.querySelector(
+    ".nav-links"
+  );
+
+  function closeMobileMenu() {
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation");
+    mobileNavigation.classList.remove("is-open");
+  }
+
+  menuButton.addEventListener("click", () => {
+    const isOpen =
+      menuButton.getAttribute("aria-expanded") === "true";
+
+    menuButton.setAttribute(
+      "aria-expanded",
+      String(!isOpen)
+    );
+
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Open navigation" : "Close navigation"
+    );
+
+    mobileNavigation.classList.toggle(
+      "is-open",
+      !isOpen
+    );
+  });
+
+  mobileNavigation.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 650) {
+      closeMobileMenu();
+    }
+  });
+</script>
 
 </body>
 
